@@ -1,0 +1,15 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "IBM Plex Sans", "Segoe UI", sans-serif;
+  background: linear-gradient(180deg, #f2f5f9 0%, #ffffff 50%, #f0f4ff 100%);
+}
+
+a {
+  color: inherit;
+}
