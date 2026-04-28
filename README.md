@@ -5,6 +5,7 @@ Host application for the micro-frontend demo. It mounts `about-app`, `products-a
 ## Table of Contents
 
 - [Prerequisites](#prerequisites)
+- [Vercel Deployment](#vercel-deployment)
 - [Run All Apps From VS Code Workspace](#run-all-apps-from-vs-code-workspace)
 - [Run Individual Apps](#run-individual-apps)
 - [Open in Browser](#open-in-browser)
@@ -20,6 +21,46 @@ Host application for the micro-frontend demo. It mounts `about-app`, `products-a
   - `mfe-about-app`
   - `mfe-products-app`
   - `mfe-prices-app`
+
+## Vercel Deployment
+
+Used `mfe.ee-ze.com` as the host dashboard domain, and deployed products app remote as a separate project/subdomain (`mfe-products.ee-ze.com`).
+
+Domains:
+
+- Dashboard host: `https://mfe.ee-ze.com`
+- About remote: not deployed
+- Products remote: `https://mfe-products.ee-ze.com/remote-entry.js`
+- Prices remote: not deployed
+
+Dashboard project environment variables (Vercel -> Settings -> Environment Variables):
+
+- `NEXT_PUBLIC_MFE_BASE_DOMAIN=ee-ze.com`
+
+Remote project requirements (`about-app`, `products-app`, `prices-app`):
+
+- Build command: `pnpm build`
+- Install command: `pnpm install`
+- Output directory: `dist`
+- CORS header in each remote `vercel.json`:
+  - `Access-Control-Allow-Origin: https://mfe.ee-ze.com`
+
+After any env, domain, or header change:
+
+1. Redeploy affected remote project(s).
+2. Redeploy dashboard project.
+3. Hard refresh browser (`Cmd+Shift+R`).
+
+Production verification:
+
+1. Open each remote entry URL and confirm it returns JavaScript:
+   - `https://mfe-about.ee-ze.com/remote-entry.js`
+   - `https://mfe-products.ee-ze.com/remote-entry.js`
+   - `https://mfe-prices.ee-ze.com/remote-entry.js`
+2. Open dashboard routes:
+   - `https://mfe.ee-ze.com/about`
+   - `https://mfe.ee-ze.com/products`
+   - `https://mfe.ee-ze.com/prices`
 
 ## Run All Apps From VS Code Workspace
 

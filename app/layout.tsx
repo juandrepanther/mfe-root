@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
+import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
 import { Providers } from "@/components/providers";
 import { TopAppBar } from "@/components/top-app-bar";
 import "./globals.css";
@@ -18,12 +19,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <Providers>
-          <TopAppBar />
-          <Container maxWidth="lg" sx={{ py: 4 }}>
-            <Box>{children}</Box>
-          </Container>
-        </Providers>
+        <AppRouterCacheProvider>
+          <Providers>
+            <TopAppBar />
+            <Container maxWidth="lg" sx={{ py: 4 }}>
+              <Box>{children}</Box>
+            </Container>
+          </Providers>
+        </AppRouterCacheProvider>
       </body>
     </html>
   );
