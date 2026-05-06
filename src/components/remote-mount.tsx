@@ -1,5 +1,6 @@
 "use client";
 
+import type { AuthSnapshot } from "@/lib/auth/types";
 import type { RemoteMountProps } from "@/lib/remote-runtime";
 import { isRemoteModuleCached } from "@/lib/remote-runtime";
 import { loadRemoteModule } from "@/lib/remote-runtime";
@@ -13,12 +14,14 @@ type RemoteMountComponentProps = {
   remoteUrl: string;
   route: RemoteMountProps["route"];
   appName: string;
+  authSnapshot: AuthSnapshot;
 };
 
 export const RemoteMount = ({
   remoteUrl,
   route,
   appName,
+  authSnapshot,
 }: RemoteMountComponentProps) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const [status, setStatus] = useState<"loading" | "ready" | "error">("loading");
@@ -44,7 +47,7 @@ export const RemoteMount = ({
           return;
         }
 
-        remote.mount(containerRef.current, { route });
+        remote.mount(containerRef.current, { route, auth: authSnapshot });
         setStatus("ready");
 
         return () => {
@@ -70,7 +73,7 @@ export const RemoteMount = ({
       canceled = true;
       cleanup?.();
     };
-  }, [remoteUrl, route]);
+  }, [authSnapshot, remoteUrl, route]);
 
   return (
     <Paper

@@ -1,5 +1,8 @@
+import type { AuthSnapshot } from "@/lib/auth/types";
+
 export type RemoteMountProps = {
   route: "/about" | "/products" | "/prices";
+  auth: AuthSnapshot;
 };
 
 export type RemoteModule = {

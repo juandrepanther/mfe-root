@@ -6,6 +6,10 @@ import { TopAppBar } from "@/components/top-app-bar";
 
 vi.mock("next/navigation", () => ({
   usePathname: () => "/",
+  useRouter: () => ({
+    push: vi.fn(),
+    refresh: vi.fn(),
+  }),
 }));
 
 vi.mock("next/link", () => ({
@@ -21,8 +25,11 @@ vi.mock("next/link", () => ({
 
 describe("TopAppBar", () => {
   it("renders the app bar title", () => {
-    const { getByText } = render(<TopAppBar />);
+    const { getByText } = render(
+      <TopAppBar user={{ email: "admin@example.com", role: "admin" }} />,
+    );
 
     expect(getByText("MFE Dashboard")).toBeVisible();
+    expect(getByText("admin@example.com (admin)")).toBeVisible();
   });
 });

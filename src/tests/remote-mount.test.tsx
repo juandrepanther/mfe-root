@@ -5,6 +5,16 @@ import { loadRemoteModule } from "@/lib/remote-runtime";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { RemoteMount } from "@/components/remote-mount";
 
+const authSnapshot = {
+  isAuthenticated: true,
+  user: {
+    email: "admin@example.com",
+    role: "admin",
+  },
+  loginUrl: "/login",
+  logoutUrl: "/api/auth/logout",
+};
+
 vi.mock("@/lib/remote-runtime", () => ({
   isRemoteModuleCached: vi.fn(() => false),
   loadRemoteModule: vi.fn(),
@@ -54,6 +64,7 @@ describe("RemoteMount", () => {
 
     const { getByText, queryByText, rerender } = render(
       <RemoteMount
+        authSnapshot={authSnapshot}
         remoteUrl="http://localhost:4102/remote-entry.js"
         route="/products"
         appName="Products App"
@@ -72,6 +83,7 @@ describe("RemoteMount", () => {
 
     rerender(
       <RemoteMount
+        authSnapshot={authSnapshot}
         remoteUrl="http://localhost:4101/remote-entry.js"
         route="/about"
         appName="About App"
@@ -113,6 +125,7 @@ describe("RemoteMount", () => {
 
     const { getByText, queryByText, rerender } = render(
       <RemoteMount
+        authSnapshot={authSnapshot}
         remoteUrl="http://localhost:4102/remote-entry.js"
         route="/products"
         appName="Products App"
@@ -127,6 +140,7 @@ describe("RemoteMount", () => {
 
     rerender(
       <RemoteMount
+        authSnapshot={authSnapshot}
         remoteUrl="http://localhost:4101/remote-entry.js"
         route="/about"
         appName="About App"
@@ -141,6 +155,7 @@ describe("RemoteMount", () => {
 
     rerender(
       <RemoteMount
+        authSnapshot={authSnapshot}
         remoteUrl="http://localhost:4102/remote-entry.js"
         route="/products"
         appName="Products App"
